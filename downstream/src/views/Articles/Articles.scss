@@ -1,0 +1,36 @@
+@import "../../theme";
+
+$main-basis: 75%;
+
+.articles-container {
+    display: flex;
+    flex-direction: row;
+    gap: $list-gap * 2;
+
+    @media (max-width: $mobile-max-width) {
+        flex-direction: column;
+    }
+
+    &__info-card {
+        flex-basis: calc(100% - #{$main-basis});
+        @media (max-width: $mobile-max-width) {
+            order: -1;
+        }
+    }
+
+    .article-partial-container {
+        flex-basis: $main-basis;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        gap: $list-gap;
+
+        @media (min-width: $mobile-max-width) {
+            flex-basis: auto;
+        }
+
+        .article-partial-card {
+            @include card($hoverable: true);
+        }
+    }
+}

@@ -1,0 +1,6 @@
+{
+  "title": "This Is A Demo Article",
+  "date": "2023-02-22T06:53:01+0000",
+  "content": "#### Animal Interface Satisfied by Dog\n```go\ntype Animal interface {\n\tMakeSound(sound string) string\n}\n\ntype Dog {\n\tsound string\n}\n\nfunc (d *Dog) MakeSound(sound string) {\n\treturn sound\n}\nd := &Dog{sound: \"woof\"}```\n\n# This is a Big Title\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+  "id": "00000000"
+}

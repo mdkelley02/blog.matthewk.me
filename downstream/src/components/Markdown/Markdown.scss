@@ -1,0 +1,24 @@
+@import "../../theme.scss";
+
+.code-snippet {
+    &__code {
+        border-radius: $border-radius;
+    }
+    position: relative;
+    .copy-button {
+        @include card(true);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.5rem;
+        position: absolute;
+        top: $card-padding;
+        right: $card-padding;
+    }
+}
+.anchor {
+    @include anchor();
+}
+.markdown {
+    @include markdown();
+}

@@ -1,0 +1,24 @@
+@import "../../theme.scss";
+
+.not-found {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @include on-mobile {
+        gap: $list-gap * 5;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: $list-gap;
+    }
+
+    &__graphic img {
+        max-width: 400px;
+    }
+}

@@ -1,0 +1,30 @@
+@import "../../theme";
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &__section {
+        display: flex;
+        align-items: stretch;
+        gap: $header-gap;
+        margin: $header-gap * 2 0;
+        &__logo {
+            cursor: pointer;
+        }
+        &__item {
+            @include card($hoverable: true);
+            color: var(--primary-headline) !important;
+            display: flex;
+            align-items: center;
+            font-size: $paragraph-font-size;
+            padding: 0.5rem 1rem;
+        }
+    }
+    .hide-mobile {
+        @include on-mobile {
+            display: none;
+        }
+    }
+}

@@ -1,0 +1,31 @@
+@import "../../theme";
+
+html,
+body {
+    overflow-x: hidden;
+}
+body {
+    position: relative;
+    margin: 0;
+}
+
+.layout {
+    display: flex;
+    flex-direction: column;
+    gap: $list-gap * 2;
+
+    .layout__content-window {
+        @include content-window();
+        display: flex;
+        flex-direction: column;
+        gap: $list-gap;
+        .layout__main {
+            min-height: 100vh;
+        }
+    }
+
+    .layout__footer {
+        @include card();
+        border-radius: 0;
+    }
+}

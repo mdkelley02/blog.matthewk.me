@@ -1,0 +1,25 @@
+@import "../../theme.scss";
+
+.info-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: $border-radius;
+    gap: $list-gap;
+    &__header {
+        img.bainbridge-matthew {
+            border-radius: $border-radius;
+            max-width: 250px;
+        }
+    }
+
+    &__body,
+    &__header {
+        text-align: center;
+    }
+
+    &__footer {
+        justify-content: center;
+        @include chip-list();
+    }
+}

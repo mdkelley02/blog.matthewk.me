@@ -1,0 +1,202 @@
+$border-radius: 0.5rem;
+$list-gap: 1rem;
+$card-padding: 1rem;
+$headline-font-size: 1.5rem;
+$sub-headline-font-size: 1.25rem;
+$paragraph-font-size: 1rem;
+$max-width: 800px;
+$header-gap: 1rem;
+$mobile-padding: 2rem;
+$mobile-max-width: 768px;
+$button: #7f5af0;
+$button-text: #fffffe;
+$card-background-light: #f2f2f2;
+$card-background-dark: #16161a;
+
+$color-theme: (
+    dark: (
+        primary: (
+            background: #16161a,
+            headline: #fffffe,
+            paragraph: #94a1b2,
+            button: $button,
+            button-hover: darken($button, 13%),
+            button-active: darken($button, 16%),
+            button-text: $button-text,
+        ),
+        secondary: (
+            background: #242629,
+            headline: #fffffe,
+            sub-headline: #94a1b2,
+            card-background: $card-background-dark,
+            card-background-hover: darken($card-background-dark, 2%),
+            card-background-active: darken($card-background-dark, 5%),
+            card-heading: #fffffe,
+        ),
+    ),
+    light: (
+        primary: (
+            background: #f2f2f2,
+            headline: #1a1a1a,
+            paragraph: #4f4f4f,
+            button: $button,
+            button-hover: darken($button, 13%),
+            button-active: darken($button, 16%),
+            button-text: $button-text,
+        ),
+        secondary: (
+            background: #ffffff,
+            headline: #1a1a1a,
+            sub-headline: #4f4f4f,
+            card-background: $card-background-light,
+            card-background-hover: darken($card-background-light, 10%),
+            card-background-active: darken($card-background-light, 15%),
+            card-heading: #1a1a1a,
+        ),
+    ),
+);
+
+@each $themeName, $themeMap in $color-theme {
+    :root[data-theme="#{$themeName}"] {
+        @each $sectionName, $sectionMap in $themeMap {
+            @each $elementName, $elementValue in $sectionMap {
+                --#{$sectionName}-#{$elementName}: #{$elementValue};
+            }
+        }
+    }
+}
+
+@mixin animation($target: all, $duration: 0.1s, $timing: ease-in-out) {
+    transition: $target $duration $timing;
+}
+
+@mixin hoverable($hover, $active) {
+    user-select: none;
+    @include animation();
+    &:hover {
+        background-color: $hover;
+        cursor: pointer;
+    }
+    &:active {
+        background-color: $active;
+        cursor: pointer;
+    }
+}
+
+@mixin button {
+    background-color: var(--primary-button);
+    color: var(--primary-button-text);
+    padding: 0.25rem 0.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+
+    @include hoverable(var(--primary-button-hover), var(--primary-button-active));
+}
+
+@mixin card($hoverable: false) {
+    background-color: var(--secondary-background);
+    color: var(--secondary-card-heading);
+    padding: 1rem;
+    border-radius: $border-radius;
+    @if $hoverable {
+        @include hoverable(var(--secondary-card-background-hover), var(--secondary-card-background-active));
+    }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        color: var(--secondary-card-heading);
+    }
+}
+
+@mixin chip {
+    background-color: var(--primary-button);
+    color: var(--primary-button-text);
+    @include hoverable(var(--primary-button-hover), var(--primary-button-active));
+    padding: 0.25rem 0.6rem;
+    border-radius: $border-radius;
+    font-weight: 600;
+}
+
+@mixin chip-list {
+    display: flex;
+    flex-direction: row;
+    gap: $list-gap;
+    .chip {
+        @include chip();
+    }
+}
+
+@mixin anchor {
+    color: var(--primary-button);
+    text-decoration: none;
+    cursor: pointer;
+    @include animation();
+    &:hover {
+        text-decoration: underline;
+    }
+    &:active {
+        text-decoration: underline;
+    }
+    &:visited {
+        color: var(--primary-button-active);
+    }
+}
+
+@mixin content-window {
+    max-width: $max-width;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 $mobile-padding;
+    @include on-mobile {
+        overflow: hidden;
+    }
+}
+
+@mixin markdown {
+    display: flex;
+    flex-direction: column;
+    gap: $header-gap;
+    ul {
+        list-style-type: disc;
+        padding-left: 1.5rem;
+    }
+    ol {
+        list-style-type: decimal;
+        padding-left: 1.5rem;
+    }
+    code {
+        font-family: "JetBrains Mono", monospace;
+    }
+    img {
+        max-width: 90%;
+        border-radius: $border-radius;
+        display: block;
+        margin: 0 auto;
+    }
+}
+
+@mixin on-mobile {
+    @media (max-width: $mobile-max-width) {
+        @content;
+    }
+}
+
+.icon-with-text {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+span.react-loading-skeleton {
+    --base-color: var(--secondary-background);
+    --highlight-color: var(--secondary-card-background);
+}

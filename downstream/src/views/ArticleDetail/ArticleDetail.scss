@@ -1,0 +1,16 @@
+@import "../../theme.scss";
+
+.article-detail {
+    display: flex;
+    flex-direction: column;
+    gap: $list-gap * 2;
+    &__header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        &__info {
+            display: flex;
+            gap: $list-gap;
+        }
+    }
+}

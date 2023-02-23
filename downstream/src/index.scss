@@ -1,0 +1,103 @@
+@use "sass:map";
+@use "sass:color";
+@import "theme";
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  box-sizing: border-box;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    color: var(--primary-headline);
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-size: $headline-font-size;
+  }
+
+  h4,
+  h5 {
+    font-size: $sub-headline-font-size;
+  }
+
+  h5 {
+    font-size: $sub-headline-font-size;
+    color: var(--secondary-sub-headline);
+  }
+
+  p {
+    color: var(--primary-paragraph);
+    font-size: $paragraph-font-size;
+  }
+
+  body {
+    background-color: var(--primary-background);
+  }
+
+  button {
+    @include button();
+  }
+
+  .card {
+    @include card();
+  }
+
+  .chip {
+    @include chip();
+  }
+
+  .chip-list {
+    @include chip-list();
+  }
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+a,
+button {
+  all: unset;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+ol,
+dl,
+dd,
+blockquote,
+figure,
+pre,
+hr,
+fieldset,
+table,
+address {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
