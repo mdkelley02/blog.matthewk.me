@@ -48,29 +48,11 @@ function calcReadTime(content: string): number {
 }
 
 export function useArticles() {
-  const [articles, setArticles] = useLocalStorage(
-    StorageKeys.Articles,
-    [],
-    (value) => {
-      return JSON.parse(value).map((article: ArticlePartial) => ({
-        ...article,
-        date: new Date(article.date),
-      }));
-    }
-  );
-
-  useEffect(() => {
-    const interval = setInterval(() => getArticles(false), 1000 * 60 * 5);
-    return () => clearInterval(interval);
-  }, []);
-
   async function getArticles(tryCache = true): Promise<ArticlePartial[]> {
-    if (tryCache && articles.length) return articles;
     try {
       const response = await fetch(API_BASE);
       const data: GetArticlesResponse = await response.json();
-      setArticles(parseGetArticlesResponse(data));
-      return articles;
+      return parseGetArticlesResponse(data);
     } catch (error) {
       console.error("Error fetching articles:", error);
       return [];
