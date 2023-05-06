@@ -26,6 +26,23 @@ jobs:
       run: npm run build
       working-directory: downstream
 
+    - name: Cache AWS CLI
+      uses: actions/cache@v2
+      id: cache-awscli
+      with:
+        path: aws-cli
+        key: ${{ runner.os }}-awscli-${{ hashFiles('**/aws-cli/aws') }}
+
+    - name: Install AWS CLI
+      if: steps.cache-awscli.outputs.cache-hit != 'true'
+      run: |
+        curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+        unzip awscliv2.zip
+        sudo ./aws/install --install-dir $PWD/aws-cli --bin-dir $PWD/aws-cli
+
+    - name: Add AWS CLI to PATH
+      run: echo "$PWD/aws-cli" >> $GITHUB_PATH
+
     - name: Deploy to S3
       run: npm run upload
       working-directory: downstream
