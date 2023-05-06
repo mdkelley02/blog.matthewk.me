@@ -15,12 +15,11 @@ export default function Header() {
 
 function LeftHeader() {
   const { goHome } = useNavigate();
-
   return (
     <div className="header-container__section">
-      <h2 className="header-container__section__logo" onClick={goHome}>
-        Matthew Kelley
-      </h2>
+      <div className="header-container__section__logo" onClick={goHome}>
+        <h3>Matthew Kelley</h3>
+      </div>
     </div>
   );
 }
@@ -31,9 +30,15 @@ function RightHeader() {
 
   return (
     <div className="header-container__section">
-      <Link className="hide-mobile" target="_blank" to={"https://matthewk.me"}>
-        <p className="header-container__section__item">About</p>
-      </Link>
+      <div className="header-container__section__item">
+        <Link
+          className="hide-mobile"
+          target="_blank"
+          to={"https://matthewk.me"}
+        >
+          About
+        </Link>
+      </div>
       <div className="header-container__section__item" onClick={toggleTheme}>
         {ThemeIcons[theme]}
       </div>

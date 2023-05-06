@@ -11,18 +11,29 @@
         justify-content: center;
         gap: $header-gap;
         margin: $header-gap * 2 0;
+        font-weight: 500;
         &__logo {
             cursor: pointer;
-            font-size: 1.3rem !important;
         }
         &__item {
-            @include card($hoverable: true);
             color: var(--primary-headline) !important;
+            background-color: var(--secondary-background);
+            padding: 0.6rem 0.75rem;
+            cursor: pointer;
+            border-radius: $border-radius;
+            min-width: 45px;
+            height: 45px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: $paragraph-font-size;
-            padding: 0.5rem 0.75rem;
+
+            &:hover {
+                background-color: var(--secondary-card-background-hover);
+            }
+            &:active {
+                background-color: var(--secondary-card-background-active);
+            }
+            @include animation();
         }
     }
     .hide-mobile {

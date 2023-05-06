@@ -9,6 +9,9 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        &__title h1 {
+            font-size: 1.7rem;
+        }
         &__info {
             display: flex;
             gap: $list-gap;

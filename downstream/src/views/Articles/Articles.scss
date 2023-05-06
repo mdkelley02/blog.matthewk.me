@@ -30,6 +30,7 @@ $main-basis: 70%;
             @include card($hoverable: true);
             display: flex;
             flex-direction: column;
+            gap: $list-gap / 3;
         }
     }
 }

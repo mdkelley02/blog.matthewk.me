@@ -3,11 +3,78 @@ $list-gap: 1rem;
 $card-padding: 1rem;
 $headline-font-size: 1.5rem;
 $sub-headline-font-size: 1.25rem;
-$paragraph-font-size: 1rem;
-$max-width: 1000px;
+$paragraph-font-size: 1.1rem;
+
+$mb: 0.5rem;
+$p-font-size: 1rem;
+$typography-map: (
+    h1: (
+        font-size: 1.6rem,
+        font-weight: 800,
+        color: var(--primary-headline),
+    ),
+    h2: (
+        font-size: 1.4rem,
+        font-weight: 600,
+        color: var(--primary-headline),
+    ),
+    h3: (
+        font-size: 1.25rem,
+        font-weight: 600,
+        color: var(--primary-headline),
+    ),
+    h4: (
+        font-size: 1.1rem,
+        font-weight: 600,
+        color: var(--primary-headline),
+    ),
+    h5: (
+        font-size: 1rem,
+        font-weight: 600,
+        color: var(--primary-headline),
+    ),
+    p: (
+        font-weight: 500,
+        font-size: $paragraph-font-size,
+        color: var(--primary-paragraph),
+    ),
+    a: (
+        font-size: 1rem,
+        font-weight: 400,
+        margin-bottom: 1rem,
+    ),
+    li: (
+        font-weight: 400,
+        margin-bottom: 0.5rem,
+        font-size: $paragraph-font-size,
+        color: var(--primary-paragraph),
+    ),
+    code: (
+        font-size: 1rem,
+        font-weight: 400,
+        margin-bottom: 1rem,
+    ),
+    img: (
+        font-size: 1.1rem,
+        font-weight: 400,
+        margin-bottom: 1rem,
+    ),
+);
+
+@each $element, $map in $typography-map {
+    #{$element} {
+        @each $property, $value in $map {
+            #{$property}: $value;
+        }
+    }
+}
+
 $header-gap: 1rem;
+
 $mobile-padding: 2rem;
+$max-width: 1000px;
 $mobile-max-width: 768px;
+
 $button: #2f62c9;
 $button-text: #fffffe;
 $card-background-light: #f2f2f2;
@@ -90,7 +157,7 @@ $color-theme: (
     border: none;
     border-radius: 5px;
     cursor: pointer;
-
+    font-weight: 500;
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
@@ -164,10 +231,7 @@ $color-theme: (
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    li {
-        color: var(--primary-paragraph);
-        font-size: $paragraph-font-size;
-    }
+
     ul {
         list-style-type: disc;
         padding-left: 1.5rem;

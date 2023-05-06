@@ -36,7 +36,9 @@ function ArticleDetail() {
           <Skeleton height={50} />
         ) : (
           <div className="article-detail__header">
-            <h1>{article?.title}</h1>
+            <div className="article-detail__header__title">
+              <h1>{article?.title}</h1>
+            </div>
             <div className="article-detail__header__info">
               <p className="icon-with-text">
                 <AiFillCalendar />

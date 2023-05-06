@@ -18,7 +18,7 @@ function ArticleCard({ article }: { article: ArticlePartial }) {
     <li>
       <Link to={`/articles/${article.id}`}>
         <div className="card article-partial-card">
-          <h4>{article.title}</h4>
+          <h3>{article.title}</h3>
           <p className="icon-with-text">
             <AiFillCalendar />
             <span>{article.date.toLocaleDateString()}</span>
