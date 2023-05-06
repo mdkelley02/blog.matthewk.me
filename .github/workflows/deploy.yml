@@ -1,4 +1,4 @@
-name: Deploy Downstream
+name: Deploy to S3
 
 on:
   push:
@@ -20,12 +20,15 @@ jobs:
 
     - name: Install dependencies
       run: npm ci
+      working-directory: downstream
 
     - name: Build
       run: npm run build
+      working-directory: downstream
 
     - name: Deploy to S3
       run: npm run upload
+      working-directory: downstream
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
