@@ -4,7 +4,8 @@ import { BsFillMoonFill, BsFillSunFill } from "react-icons/bs";
 import { dracula } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 const Themes = ["dark", "light"] as const;
-export type ThemeColor = typeof Themes[number];
+export type ThemeColor = (typeof Themes)[number];
+
 const ThemeDataAttr = "data-theme" as const;
 const ThemeElementSelector = "html" as const;
 const ThemeElement = document.querySelector(ThemeElementSelector);
@@ -13,6 +14,7 @@ export const ThemeIcons = {
   dark: <BsFillMoonFill />,
   light: <BsFillSunFill />,
 };
+
 export const SkeletonThemeStyles: Record<
   ThemeColor,
   { baseColor: string; highlightColor: string }
@@ -26,36 +28,35 @@ export const SkeletonThemeStyles: Record<
     highlightColor: "#cccccc",
   },
 };
+
 export const MarkdownCodeTheme = dracula;
 
 export function useTheme() {
-  const [theme, _setTheme] = useState<ThemeColor>("light");
+  const [theme, setTheme] = useState<ThemeColor>("light");
   const [savedTheme, setSavedTheme] = useLocalStorage<ThemeColor>(
     StorageKeys.Theme,
     "dark"
   );
 
-  function setTheme(theme: ThemeColor) {
-    ThemeElement?.setAttribute(ThemeDataAttr, theme);
-    _setTheme(theme);
-    setSavedTheme(theme);
-  }
-
-  function systemTheme(): ThemeColor {
+  function getSystemTheme(): ThemeColor {
     return window.matchMedia("(prefers-color-scheme: dark)").matches
       ? "dark"
       : "light";
   }
 
-  useEffect(() => {
-    const defaultTheme = savedTheme || systemTheme();
-    setTheme(defaultTheme);
-  }, []);
+  function applyTheme(theme: ThemeColor) {
+    ThemeElement?.setAttribute(ThemeDataAttr, theme);
+    setTheme(theme);
+    setSavedTheme(theme);
+  }
 
   function toggleTheme() {
-    const newTheme = theme === "dark" ? "light" : "dark";
-    setTheme(newTheme);
+    applyTheme(theme === "dark" ? "light" : "dark");
   }
+
+  useEffect(() => {
+    applyTheme(savedTheme || getSystemTheme());
+  }, []);
 
   return [theme, toggleTheme] as const;
 }

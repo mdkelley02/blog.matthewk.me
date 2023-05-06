@@ -11,7 +11,7 @@ resource "aws_cloudfront_distribution" "blog_spa_distribution" {
 
   origin {
     domain_name = aws_s3_bucket.blog_spa_bucket.bucket_regional_domain_name
-    origin_id   = aws_s3_bucket.blog_spa_bucket.bucket_regional_domain_name
+    origin_id   = aws_s3_bucket.blog_spa_bucket.SX
 
     s3_origin_config {
       origin_access_identity = aws_cloudfront_origin_access_identity.blog_spa_oai.cloudfront_access_identity_path

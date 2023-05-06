@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "upload": "aws s3 sync dist/ s3://blog-bucket20230222034014165900000002 --delete"
+    "upload": "aws s3 sync dist/ s3://blog-bucket20230222034014165900000002 --delete",
+    "deploy": "npm run build && npm run upload"
   },
   "dependencies": {
     "@types/react-syntax-highlighter": "^15.5.6",

@@ -1,7 +1,7 @@
-import { useNavigate as _useNavigate } from "react-router-dom";
+import { useNavigate as defaultUseNavigate } from "react-router-dom";
 
 export function useNavigate() {
-  const navigator = _useNavigate();
+  const navigator = defaultUseNavigate();
 
   function canGoBack() {
     return window.history.state != null && window.history.state.idx > 0;
@@ -12,11 +12,7 @@ export function useNavigate() {
   }
 
   function goBack() {
-    if (canGoBack()) {
-      navigator(-1);
-    } else {
-      goHome();
-    }
+    canGoBack() ? navigator(-1) : goHome();
   }
 
   function currentPath() {

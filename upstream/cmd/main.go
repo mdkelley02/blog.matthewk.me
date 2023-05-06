@@ -6,9 +6,9 @@ import (
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
 	"github.com/kelseyhightower/envconfig"
-	"github.com/mdkelley02/bootstrapped-blog/configs"
-	"github.com/mdkelley02/bootstrapped-blog/internal/handlers"
-	"github.com/mdkelley02/bootstrapped-blog/internal/store"
+	"github.com/mdkelley02/blog.matthewk.me/configs"
+	"github.com/mdkelley02/blog.matthewk.me/internal/handlers"
+	"github.com/mdkelley02/blog.matthewk.me/internal/store"
 	"github.com/sirupsen/logrus"
 )
 
@@ -24,12 +24,17 @@ func main() {
 		panic(err)
 	}
 
-	sess := session.Must(session.NewSession(&aws.Config{
-		Region: aws.String(settings.AWS_REGION),
-	}))
+	sess := session.Must(session.NewSession(
+		&aws.Config{Region: aws.String(settings.AWS_REGION)},
+	))
 
-	store := store.NewS3Store(log, s3.New(sess), settings.BUCKET_NAME)
-	router := handlers.NewRouter(log, store)
+	router := handlers.NewRouter(
+		log,
+		store.NewS3Store(
+			log, s3.New(sess),
+			settings.BUCKET_NAME,
+		),
+	)
 
 	lambda.Start(router.Handle)
 }

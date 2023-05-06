@@ -8,18 +8,21 @@
     &__section {
         display: flex;
         align-items: stretch;
+        justify-content: center;
         gap: $header-gap;
         margin: $header-gap * 2 0;
         &__logo {
             cursor: pointer;
+            font-size: 1.3rem !important;
         }
         &__item {
             @include card($hoverable: true);
             color: var(--primary-headline) !important;
             display: flex;
             align-items: center;
+            justify-content: center;
             font-size: $paragraph-font-size;
-            padding: 0.5rem 1rem;
+            padding: 0.5rem 0.75rem;
         }
     }
     .hide-mobile {

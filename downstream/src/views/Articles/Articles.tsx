@@ -3,10 +3,10 @@ import { RouteObject } from "react-router-dom";
 import { useArticles, ArticlePartial } from "../../hooks/useArticles";
 import { Link } from "react-router-dom";
 import Layout from "../../components/Layout/Layout";
-import "./Articles.scss";
 import { AiFillCalendar } from "react-icons/ai";
 import InfoCard from "../../components/InfoCard/InfoCard";
 import Skeleton from "react-loading-skeleton";
+import "./Articles.scss";
 
 export const ArticlesRoute: RouteObject = {
   path: "/",
@@ -29,14 +29,13 @@ function ArticleCard({ article }: { article: ArticlePartial }) {
   );
 }
 
-export default function Articles() {
+function Articles() {
   const { getArticles } = useArticles();
-  const [articles, setArticles] = useState<ArticlePartial[]>();
+  const [articles, setArticles] = useState<ArticlePartial[]>([]);
 
   useEffect(() => {
     async function fetchArticles() {
-      const response = await getArticles();
-      setArticles(response);
+      setArticles(await getArticles());
     }
     fetchArticles();
   }, []);

@@ -4,11 +4,11 @@ $card-padding: 1rem;
 $headline-font-size: 1.5rem;
 $sub-headline-font-size: 1.25rem;
 $paragraph-font-size: 1rem;
-$max-width: 800px;
+$max-width: 1000px;
 $header-gap: 1rem;
 $mobile-padding: 2rem;
 $mobile-max-width: 768px;
-$button: #7f5af0;
+$button: #2f62c9;
 $button-text: #fffffe;
 $card-background-light: #f2f2f2;
 $card-background-dark: #16161a;
@@ -18,7 +18,7 @@ $color-theme: (
         primary: (
             background: #16161a,
             headline: #fffffe,
-            paragraph: #94a1b2,
+            paragraph: #a2afc0,
             button: $button,
             button-hover: darken($button, 13%),
             button-active: darken($button, 16%),
@@ -102,7 +102,7 @@ $color-theme: (
 @mixin card($hoverable: false) {
     background-color: var(--secondary-background);
     color: var(--secondary-card-heading);
-    padding: 1rem;
+    padding: 1.1rem;
     border-radius: $border-radius;
     @if $hoverable {
         @include hoverable(var(--secondary-card-background-hover), var(--secondary-card-background-active));
@@ -163,7 +163,11 @@ $color-theme: (
 @mixin markdown {
     display: flex;
     flex-direction: column;
-    gap: $header-gap;
+    gap: 0.5rem;
+    li {
+        color: var(--primary-paragraph);
+        font-size: $paragraph-font-size;
+    }
     ul {
         list-style-type: disc;
         padding-left: 1.5rem;
@@ -180,6 +184,15 @@ $color-theme: (
         border-radius: $border-radius;
         display: block;
         margin: 0 auto;
+    }
+    a {
+        @include anchor();
+        white-space: normal;
+        word-wrap: break-word;
+    }
+    strong {
+        font-weight: 600;
+        font-size: 1.1rem;
     }
 }
 

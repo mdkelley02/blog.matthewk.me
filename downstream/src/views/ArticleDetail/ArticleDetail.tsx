@@ -8,54 +8,52 @@ import Markdown from "../../components/Markdown/Markdown";
 import Skeleton from "react-loading-skeleton";
 import "./ArticleDetail.scss";
 
-type ArticleDetailParams = {
-  articleId: string;
-};
-
 export const ArticleDetailRoute: RouteObject = {
   path: "/articles/:articleId",
   element: <ArticleDetail />,
 };
 
-export default function ArticleDetail() {
-  const [markdownContent, setMarkdownContent] = useState<Article>();
+type ArticleDetailParams = {
+  articleId: string;
+};
+
+function ArticleDetail() {
+  const [article, setArticle] = useState<Article | null>(null);
   const { articleId } = useParams<ArticleDetailParams>();
-  const { getArticle, readingTime } = useArticles();
+  const { getArticle } = useArticles();
 
   useEffect(() => {
-    async function fetchMarkdown() {
-      const article = await getArticle(articleId ?? "");
-      setMarkdownContent(article);
+    async function fetchArticle() {
+      setArticle(await getArticle(articleId ?? ""));
     }
-    fetchMarkdown();
+    fetchArticle();
   }, []);
 
   return (
     <Layout>
       <div className="article-detail">
-        {markdownContent == null ? (
-          <Skeleton height={40} />
+        {article == null ? (
+          <Skeleton height={50} />
         ) : (
           <div className="article-detail__header">
-            <h1>{markdownContent?.title}</h1>
+            <h1>{article?.title}</h1>
             <div className="article-detail__header__info">
               <p className="icon-with-text">
                 <AiFillCalendar />
-                {markdownContent?.date.toLocaleDateString()}
+                {article?.date.toLocaleDateString()}
               </p>
               <p className="icon-with-text">
                 <FaClock />
-                {readingTime(markdownContent?.content ?? "")} min read
+                {article.readTime} min read
               </p>
             </div>
           </div>
         )}
-
         <div className="article-detail__content">
-          {markdownContent == null ? (
-            <Skeleton count={10} height={20} />
+          {article == null ? (
+            <Skeleton count={20} height={30} />
           ) : (
-            <Markdown content={markdownContent.content} />
+            <Markdown content={article.content} />
           )}
         </div>
       </div>

@@ -12,13 +12,11 @@ body {
 .layout {
     display: flex;
     flex-direction: column;
-    gap: $list-gap * 2;
 
     .layout__content-window {
         @include content-window();
         display: flex;
         flex-direction: column;
-        gap: $list-gap;
         .layout__main {
             min-height: 100vh;
         }

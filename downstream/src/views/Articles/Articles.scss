@@ -1,6 +1,6 @@
 @import "../../theme";
 
-$main-basis: 75%;
+$main-basis: 70%;
 
 .articles-container {
     display: flex;
@@ -12,9 +12,10 @@ $main-basis: 75%;
     }
 
     &__info-card {
-        flex-basis: calc(100% - #{$main-basis});
+        max-width: 300px;
         @media (max-width: $mobile-max-width) {
             order: -1;
+            align-self: center;
         }
     }
 
@@ -25,12 +26,10 @@ $main-basis: 75%;
         flex-direction: column;
         gap: $list-gap;
 
-        @media (min-width: $mobile-max-width) {
-            flex-basis: auto;
-        }
-
         .article-partial-card {
             @include card($hoverable: true);
+            display: flex;
+            flex-direction: column;
         }
     }
 }

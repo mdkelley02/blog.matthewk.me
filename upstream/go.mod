@@ -1,4 +1,4 @@
-module github.com/mdkelley02/bootstrapped-blog
+module github.com/mdkelley02/blog.matthewk.me
 
 go 1.18
 

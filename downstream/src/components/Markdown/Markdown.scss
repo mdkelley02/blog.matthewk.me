@@ -16,9 +16,7 @@
         right: $card-padding;
     }
 }
-.anchor {
-    @include anchor();
-}
+
 .markdown {
     @include markdown();
 }

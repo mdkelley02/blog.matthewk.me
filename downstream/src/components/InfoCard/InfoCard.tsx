@@ -1,8 +1,7 @@
-import React from "react";
 import { AiFillGithub, AiFillLinkedin } from "react-icons/ai";
 import "./InfoCard.scss";
 import BainbridgeMatthew from "../../assets/bainbridge_matthew.jpg";
-const Links = [
+const INFO_LINKS = [
   {
     label: "Github",
     url: "https://github.com/mdkelley02",
@@ -30,7 +29,7 @@ export default function InfoCard() {
         <p>Computer Science Student @ BSU</p>
       </div>
       <div className="info-container__footer chip-list">
-        {Links.map((link, key) => (
+        {INFO_LINKS.map((link, key) => (
           <a key={key} target="_blank" href={link.url}>
             <div className="icon-with-text chip">
               {link.icon}

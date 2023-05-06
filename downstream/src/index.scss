@@ -2,6 +2,22 @@
 @use "sass:color";
 @import "theme";
 
+$font-sizes: (
+  1: 1.8rem,
+  2: 1.6rem,
+  3: 1.3rem,
+  4: 1.2rem,
+  5: 1rem,
+);
+
+$font-weight: (
+  1: 800,
+  2: 600,
+  3: 600,
+  4: 600,
+  5: 600,
+);
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -13,6 +29,10 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+
+  body {
+    background-color: var(--primary-background);
+  }
 
   h1,
   h2,
@@ -26,20 +46,12 @@
     color: var(--primary-headline);
   }
 
-  h1,
-  h2,
-  h3 {
-    font-size: $headline-font-size;
-  }
-
-  h4,
-  h5 {
-    font-size: $sub-headline-font-size;
-  }
-
-  h5 {
-    font-size: $sub-headline-font-size;
-    color: var(--secondary-sub-headline);
+  @each $key, $value in $font-sizes {
+    h#{$key} {
+      font-size: $value;
+      margin: 0;
+      font-weight: map.get($font-weight, $key);
+    }
   }
 
   p {
@@ -47,8 +59,8 @@
     font-size: $paragraph-font-size;
   }
 
-  body {
-    background-color: var(--primary-background);
+  h5 {
+    color: var(--secondary-sub-headline);
   }
 
   button {

@@ -3,16 +3,13 @@ package handlers
 import (
 	"context"
 	"encoding/json"
+	"errors"
+	"net/http"
 
 	"github.com/aws/aws-lambda-go/events"
+	"github.com/sirupsen/logrus"
 
-	"github.com/mdkelley02/bootstrapped-blog/internal/store"
-)
-
-const (
-	ArticleRoute   = "/articles/{id}"
-	ArticlesRoute  = "/articles"
-	HeartbeatRoute = "/heartbeat"
+	"github.com/mdkelley02/blog.matthewk.me/internal/store"
 )
 
 type ArticleResponse store.Article
@@ -25,7 +22,7 @@ type ArticlePartial struct {
 
 type ArticlesResponse []ArticlePartial
 
-func (r *Router) HandleHeartbeatRequest(
+func (r *Handler) handleHeartbeat(
 	ctx context.Context,
 	request events.APIGatewayProxyRequest,
 ) (events.APIGatewayProxyResponse, error) {
@@ -35,86 +32,59 @@ func (r *Router) HandleHeartbeatRequest(
 	}, nil
 }
 
-func (r *Router) HandleArticlesRequest(
-	ctx context.Context,
-	request events.APIGatewayProxyRequest,
-) (events.APIGatewayProxyResponse, error) {
-	articles, err := r.store.GetArticles()
-	if err != nil {
-		r.log.Errorf("Failed to get articles: %v", err)
-		return events.APIGatewayProxyResponse{
-			StatusCode: 500,
-			Body:       "Internal Server Error",
-		}, nil
-	}
-
-	response := make(ArticlesResponse, len(articles))
-	for i, article := range articles {
-		response[i] = ArticlePartial{
-			Id:    article.Id,
-			Title: article.Title,
-			Date:  article.Date,
-		}
-	}
-
-	body, err := json.Marshal(response)
-	if err != nil {
-		r.log.Errorf("Failed to marshal response: %v", err)
-		return events.APIGatewayProxyResponse{
-			StatusCode: 500,
-			Body:       "Internal Server Error",
-		}, nil
-	}
-
+func makeResponse(
+	statusCode int,
+	body string,
+) events.APIGatewayProxyResponse {
 	return events.APIGatewayProxyResponse{
-		StatusCode: 200,
+		StatusCode: statusCode,
 		Headers: map[string]string{
 			"Content-Type":                "application/json",
 			"Access-Control-Allow-Origin": "*",
 		},
-		Body: string(body),
-	}, nil
+		Body: body,
+	}
 }
 
-func (r *Router) HandleArticleRequest(
+func (r *Handler) handleGetArticles(
 	ctx context.Context,
 	request events.APIGatewayProxyRequest,
 ) (events.APIGatewayProxyResponse, error) {
-	id := request.PathParameters["id"]
-
-	article, err := r.store.GetArticle(id)
+	articles, err := r.store.GetArticles(ctx)
 	if err != nil {
-		r.log.Errorf("Failed to get article: %v", err)
-		return events.APIGatewayProxyResponse{
-			StatusCode: 500,
-			Body:       "Internal Server Error",
-		}, nil
+		r.log.Errorf("Failed to get articles: %v", err)
+		return events.APIGatewayProxyResponse{}, err
 	}
 
-	if article == nil {
-		return events.APIGatewayProxyResponse{
-			StatusCode: 404,
-			Body:       "Not Found",
-		}, nil
-	}
-
-	response := ArticleResponse(*article)
-
-	body, err := json.Marshal(response)
+	jsonData, err := json.Marshal(articles)
 	if err != nil {
-		r.log.Errorf("Failed to marshal response: %v", err)
-		return events.APIGatewayProxyResponse{
-			StatusCode: 500,
-			Body:       "Internal Server Error",
-		}, nil
+		r.log.Errorf("Failed to marshal articles JSON: %v", err)
+		return events.APIGatewayProxyResponse{}, err
 	}
 
-	return events.APIGatewayProxyResponse{
-		StatusCode: 200,
-		Headers: map[string]string{
-			"Content-Type":                "application/json",
-			"Access-Control-Allow-Origin": "*",
-		},
-		Body: string(body),
-	}, nil
+	return makeResponse(http.StatusOK, string(jsonData)), nil
+}
+
+func (r *Handler) handleGetArticle(
+	ctx context.Context,
+	request events.APIGatewayProxyRequest,
+) (events.APIGatewayProxyResponse, error) {
+	article, err := r.store.GetArticle(ctx, request.PathParameters["id"])
+	if err != nil {
+		statusCode := http.StatusInternalServerError
+		if errors.Is(err, store.ErrArticleNotFound) {
+			statusCode = http.StatusNotFound
+		} else {
+			logrus.Errorf("Failed to get article: %v", err)
+		}
+		return makeResponse(statusCode, ""), err
+	}
+
+	jsonData, err := json.Marshal(article)
+	if err != nil {
+		r.log.Errorf("Failed to marshal article JSON: %v", err)
+		return events.APIGatewayProxyResponse{}, err
+	}
+
+	return makeResponse(http.StatusOK, string(jsonData)), nil
 }

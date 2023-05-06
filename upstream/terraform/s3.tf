@@ -9,7 +9,7 @@ resource "aws_s3_bucket_acl" "articles_bucket_acl" {
 
 variable "articles_path" {
   type    = string
-  default = "../../upstream/articles"
+  default = "../articles"
 }
 
 resource "aws_s3_object" "json_files" {

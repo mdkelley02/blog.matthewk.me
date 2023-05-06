@@ -8,8 +8,8 @@
     gap: $list-gap;
     &__header {
         img.bainbridge-matthew {
+            width: 100%;
             border-radius: $border-radius;
-            max-width: 250px;
         }
     }
 
