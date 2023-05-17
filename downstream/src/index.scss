@@ -68,3 +68,38 @@ address {
   padding: 0;
   list-style: none;
 }
+
+.react-select-container {
+  .react-select__control {
+    @include card($hoverable: true);
+    padding: 0;
+    .react-select__single-value {
+      color: var(--secondary-card-heading);
+    }
+    .react-select__indicators {
+      font-size: 10px;
+    }
+  }
+  .react-select__menu {
+    border-radius: $border-radius;
+    background-color: var(--secondary-background);
+    color: var(--secondary-card-heading);
+    .react-select__option {
+      border-radius: $border-radius;
+      background-color: var(--secondary-background);
+      &:hover {
+        background-color: var(--secondary-card-background);
+      }
+      &--is-selected {
+        background-color: var(--primary-button);
+        color: var(--primary-button-text);
+        &:hover {
+          background-color: var(--primary-button-hover);
+        }
+        &:active {
+          background-color: var(--primary-button-active);
+        }
+      }
+    }
+  }
+}

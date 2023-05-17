@@ -5,6 +5,7 @@ import { ArticlesRoute } from "./views/Articles/Articles";
 import { ArticleDetailRoute } from "./views/ArticleDetail/ArticleDetail";
 import { NotFoundRoute } from "./views/NotFound/NotFound";
 import { SkeletonTheme } from "react-loading-skeleton";
+import { Colors } from "react-select";
 
 import "./index.scss";
 import "react-loading-skeleton/dist/skeleton.css";

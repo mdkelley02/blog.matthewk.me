@@ -30,6 +30,8 @@ dist-ssr
 *.tfvars.json
 **/.terraform/*
 
+.obsidian
+
 
 
 

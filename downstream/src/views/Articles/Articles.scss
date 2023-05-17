@@ -26,11 +26,28 @@ $main-basis: 70%;
         flex-direction: column;
         gap: $list-gap;
 
+        &__sort {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: $list-gap;
+            &__sort-icon {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                @include card($hoverable: true);
+            }
+        }
+
         .article-partial-card {
             @include card($hoverable: true);
             display: flex;
             flex-direction: column;
-            gap: calc(#{$list-gap} / 3);
+        }
+        .article-list {
+            display: flex;
+            flex-direction: column;
+            gap: $list-gap;
         }
     }
 }
