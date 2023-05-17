@@ -30,12 +30,8 @@ function RightHeader() {
 
   return (
     <div className="header-container__section">
-      <div className="header-container__section__item">
-        <Link
-          className="hide-mobile"
-          target="_blank"
-          to={"https://matthewk.me"}
-        >
+      <div className="hide-mobile header-container__section__item">
+        <Link target="_blank" to={"https://matthewk.me"}>
           About
         </Link>
       </div>
