@@ -30,12 +30,13 @@ $main-basis: 70%;
             display: flex;
             flex-direction: row;
             align-items: center;
-            gap: $list-gap;
+            gap: $list-gap / 2;
             &__sort-icon {
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 @include card($hoverable: true);
+                padding: 0.5rem;
             }
         }
 

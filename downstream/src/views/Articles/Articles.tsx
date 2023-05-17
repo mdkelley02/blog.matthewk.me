@@ -76,7 +76,7 @@ function Articles() {
           className="article-partial-container__sort__sort-icon"
           onClick={() => setSortBy(sortBy === "Title" ? "Date" : "Title")}
         >
-          {sortBy === "Title" ? <MdTitle /> : <MdDateRange />}
+          {sortBy === "Title" ? <MdTitle /> : <AiFillCalendar />}
         </div>
       </div>
     );
